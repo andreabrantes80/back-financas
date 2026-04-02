@@ -25,4 +25,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 
-app.listen(3333, () => console.log('Server Online!'))
+app.listen(3333, "0.0.0.0", () => console.log('Server Online!'))
