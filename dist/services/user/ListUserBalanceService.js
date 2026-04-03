@@ -16,6 +16,9 @@ class ListUserBalanceService {
                 id: user_id,
             }
         });
+        if (!findUser) {
+            throw new Error("User not found");
+        }
         const data = {
             tag: 'saldo',
             saldo: findUser.balance

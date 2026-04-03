@@ -5,43 +5,40 @@ interface ReceiveRequest {
   user_id: string;
 }
 
-class DeleteReceiveService{
-  async execute({ item_id, user_id }: ReceiveRequest){
-
+class DeleteReceiveService {
+  async execute({ item_id, user_id }: ReceiveRequest) {
     const receive = await prismaClient.receive.findFirst({
-      where:{
-        id: item_id
-      }
-    })
+      where: { id: item_id },
+    });
 
-    await prismaClient.receive.delete({
-      where:{
-        id: item_id
-      }
-    })
-
+    if (!receive) {
+      throw new Error("Recebimento não encontrado");
+    }
 
     const findUser = await prismaClient.user.findFirst({
-      where:{
-        id: user_id,
-      }
-    })
+      where: { id: user_id },
+    });
 
-    const valueUpdated = receive.type === 'despesa' ? findUser.balance += receive.value : findUser.balance -= receive.value;
+    if (!findUser) {
+      throw new Error("Usuário não encontrado");
+    }
 
-    const updateUser = await prismaClient.user.update({
-      where:{
-        id: user_id,
-      },
-      data:{
-        balance: valueUpdated
-      }
-    })
+    await prismaClient.receive.delete({
+      where: { id: item_id },
+    });
 
-    return { status: 'updated'}
+    const valueUpdated =
+      receive.type === "despesa"
+        ? findUser.balance + receive.value
+        : findUser.balance - receive.value;
 
-   
+    await prismaClient.user.update({
+      where: { id: user_id },
+      data: { balance: valueUpdated },
+    });
+
+    return { status: "updated" };
   }
 }
 
-export { DeleteReceiveService }
+export { DeleteReceiveService };

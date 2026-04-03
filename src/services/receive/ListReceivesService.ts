@@ -1,27 +1,28 @@
 import prismaClient from "../../prisma";
 
-interface ReceiveRequest {
+interface UserRequest {
   user_id: string;
-  date: string;
+  date?: string;
 }
 
-class ListReceivesService{
-  async execute({ date, user_id }: ReceiveRequest){
+class ListReceivesService {
+  async execute({ user_id, date }: UserRequest) {
+    if (!user_id) {
+      throw new Error("Usuário não encontrado");
+    }
+
+    const whereClause: any = { user_id };
+    if (date) {
+      whereClause.date = date;
+    }
 
     const receives = await prismaClient.receive.findMany({
-      where:{
-        date: date,
-        user_id: user_id,
-      },
-      orderBy:{
-        created_at: "desc"
-      }
-    })
+      where: whereClause,
+      orderBy: { date: 'desc' },
+    });
 
     return receives;
-
-   
   }
 }
 
-export { ListReceivesService }
+export { ListReceivesService };
