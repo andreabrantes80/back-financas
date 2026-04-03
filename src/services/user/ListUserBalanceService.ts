@@ -53,7 +53,7 @@ class ListUserBalanceService{
       }
     })
 
-    
+
    const resultRevenue = findReceive.reduce(getSoma, 0);
 
    const resultExpenses = findExpenses.reduce(getSoma, 0);
@@ -74,7 +74,7 @@ class ListUserBalanceService{
 
     dashboard.push(data, sumDailyRevenue, sumDailyExpense);
 
-    return dashboard;    
+    return dashboard;
   }
 }
 
