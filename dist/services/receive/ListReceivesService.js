@@ -1,22 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListReceivesService = void 0;
-const prisma_1 = __importDefault(require("../../prisma"));
-class ListReceivesService {
-    async execute({ date, user_id }) {
-        const receives = await prisma_1.default.receive.findMany({
-            where: {
-                date: date,
-                user_id: user_id,
-            },
-            orderBy: {
-                created_at: "desc"
-            }
+import prisma from "../../prisma";
+
+class ListUserBalanceService {
+    async execute({ user_id }) {
+        const findUser = await prisma.user.findFirst({
+            where: { id: user_id },
         });
-        return receives;
+
+        if (!findUser) {
+            throw new Error("Usuário não encontrado");
+        }
+
+        return { saldo: findUser.balance };
     }
 }
-exports.ListReceivesService = ListReceivesService;
+
+export { ListUserBalanceService };
