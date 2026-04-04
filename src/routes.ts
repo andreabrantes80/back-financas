@@ -12,6 +12,11 @@ import { isAuthenticated } from './middlewares/isAuthenticated';
 
 const router = Router();
 
+// Adicione isso aqui no topo das rotas
+router.get("/teste", (req, res) => {
+  res.json({ ok: true, mensagem: "Roteador funcionando!" });
+});
+
 // -- ROTAS --
 router.post('/users', new CreateUserController().handle);
 
