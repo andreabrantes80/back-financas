@@ -5,7 +5,7 @@
   "license": "MIT",
 "scripts": {
   "dev": "ts-node-dev --transpile-only src/server.ts",
-  "build": "npx prisma generate && tsc",
+  "build": "npx prisma generate && rm -rf dist && tsc",
   "start": "node dist/server.js",
   "postinstall": "npx prisma generate"
 },
@@ -30,4 +30,5 @@
   "engines": {
     "node": ">=18.0.0"
   }
+
 }

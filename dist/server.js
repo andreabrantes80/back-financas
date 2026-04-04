@@ -3,17 +3,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
 require("express-async-errors");
+const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const routes_1 = require("./routes");
+// import { router } from './routes'
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-app.use(routes_1.router);
+app.get("/", (req, res) => {
+    res.send("API rodando 🚀");
+});
+// app.use(router);
 app.use((err, req, res, next) => {
     if (err instanceof Error) {
-        // Se for uma instancia do tipo error
         return res.status(400).json({
             error: err.message
         });
@@ -23,4 +25,8 @@ app.use((err, req, res, next) => {
         message: 'Internal server error.'
     });
 });
-app.listen(3333, "0.0.0.0", () => console.log('Server Online!'));
+// 🔥 CORREÇÃO AQUI
+const PORT = Number(process.env.PORT) || 3333;
+app.listen(PORT, () => {
+    console.log('Server Online na porta', PORT);
+});

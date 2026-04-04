@@ -12,6 +12,10 @@ const DeleteReceiveController_1 = require("./controllers/receive/DeleteReceiveCo
 const isAuthenticated_1 = require("./middlewares/isAuthenticated");
 const router = (0, express_1.Router)();
 exports.router = router;
+// Adicione isso aqui no topo das rotas
+router.get("/teste", (req, res) => {
+    res.json({ ok: true, mensagem: "Roteador funcionando!" });
+});
 // -- ROTAS --
 router.post('/users', new CreateUserController_1.CreateUserController().handle);
 router.post("/login", new AuthUserController_1.AuthUserController().handle);
