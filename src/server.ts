@@ -29,7 +29,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 })
 
 // 🔥 CORREÇÃO AQUI
-const PORT = Number(process.env.PORT) || 3333;
+const PORT = Number(process.env.PORT) || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log('Server Online na porta', PORT);
