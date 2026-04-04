@@ -13,7 +13,6 @@ app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if(err instanceof Error){
-    // Se for uma instancia do tipo error
     return res.status(400).json({
       error: err.message
     })
@@ -25,4 +24,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   })
 })
 
-app.listen(3333, "0.0.0.0", () => console.log('Server Online!'))
+// 🔥 CORREÇÃO AQUI
+const PORT = Number(process.env.PORT) || 3333;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log('Server Online na porta', PORT);
+});
