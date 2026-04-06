@@ -6,6 +6,7 @@
     "rootDir": "./src",              /* Pasta de entrada */
     "strict": true,                  /* Boa prática: validação estrita */
     "esModuleInterop": true,         /* Permite import/export padrão */
+    "types": ["node"], // Adicione esta linha
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
