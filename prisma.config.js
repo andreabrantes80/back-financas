@@ -1,8 +1,5 @@
-import { defineConfig } from '@prisma/config';
-
-export default defineConfig({
+export default {
   datasource: {
-    // Agora o TypeScript vai entender o 'process.env'
     url: process.env.DATABASE_URL,
   },
-});
+};
