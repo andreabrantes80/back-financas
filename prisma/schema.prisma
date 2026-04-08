@@ -14,7 +14,7 @@ model User {
   name       String
   email      String
   password   String
-  balance    Float
+  balance    Float     @default(0)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   Receives   Receive[]
