@@ -2,7 +2,7 @@ import 'express-async-errors';
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 
-// import { router } from './routes'
+import { router } from './routes'
 
 const app = express();
 
@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   res.send("API rodando 🚀");
 });
 
-// app.use(router);
+app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if(err instanceof Error){
