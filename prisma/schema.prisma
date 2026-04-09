@@ -29,7 +29,7 @@ model Receive {
   description String
   value       Float
   type        String
-  date        String
+  date        DateTime
   created_at  DateTime? @default(now())
   updated_at  DateTime? @default(now())
   user_id     String
