@@ -12,9 +12,14 @@ class ListReceivesService {
     }
 
     const whereClause: any = { user_id };
+    // if (date) {
+    //   whereClause.date = date;
+    // }
     if (date) {
-      whereClause.date = date;
-    }
+      whereClause.date = {
+      contains: date
+     };
+  }
 
     const receives = await prismaClient.receive.findMany({
       where: whereClause,
