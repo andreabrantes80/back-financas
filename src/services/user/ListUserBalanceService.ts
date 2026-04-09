@@ -10,7 +10,7 @@ interface ItemProp{
   description: string;
   value: number;
   type: string;
-  date: string;
+  date: Date;
   user_id: string;
 }
 
@@ -54,13 +54,21 @@ class ListUserBalanceService{
     })
 
 
-   const resultRevenue = findReceive.reduce(getSoma, 0);
+  //  const resultRevenue = findReceive.reduce(getSoma, 0);
 
-   const resultExpenses = findExpenses.reduce(getSoma, 0);
+  //  const resultExpenses = findExpenses.reduce(getSoma, 0);
 
-    function getSoma(total: number, num: ItemProp) {
-      return total + num.value;
-    }
+  //   function getSoma(total: number, num: ItemProp) {
+  //     return total + num.value;
+  //   }
+
+    const resultRevenue = findReceive.reduce((total, item) => {
+  return total + item.value;
+}, 0);
+
+const resultExpenses = findExpenses.reduce((total, item) => {
+  return total + item.value;
+}, 0);
 
     const sumDailyRevenue = {
       tag: 'receita',
