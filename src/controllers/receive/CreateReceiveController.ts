@@ -2,27 +2,36 @@ import {Request, Response }from 'express'
 import { CreateReceiveService } from '../../services/receive/CreateReceiveService'
 
 class CreateReceiveController{
-  async handle(request: Request, response:Response){
-    const { 
-      description, 
-      value,
-      type,
-      date
-     } = request.body;
+  async handle(request: Request, response: Response) {
+    try {
 
-     const user_id = request.user_id;
+      const {
+        description,
+        value,
+        type,
+        date
+       } = request.body;
 
-    const createReceiveService = new CreateReceiveService();
+       const user_id = request.user_id;
 
-    const user = await createReceiveService.execute({
-      description, 
-      value,
-      type,
-      date,
-      user_id,
-    })
+      const createReceiveService = new CreateReceiveService();
 
-    return response.json(user);
+      const user = await createReceiveService.execute({
+        description,
+        value,
+        type,
+        date,
+        user_id,
+      })
+
+      return response.json(user);
+
+    } catch (err) {
+
+      console.log("ERRO CREATE RECEIVE:", err);
+
+
+    }
 
   }
 }
