@@ -35,7 +35,7 @@ class CreateReceiveService {
     }
 
     const newReceive = await prismaClient.receive.create({
-      data: { description, type, value, date, user_id },
+      data: { description, type, value, date: new Date(date), user_id },
     });
 
     return newReceive;

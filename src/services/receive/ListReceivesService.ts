@@ -13,7 +13,16 @@ class ListReceivesService {
 
     const whereClause: any = { user_id };
     if (date) {
-      whereClause.date = date;
+       const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+
+    const end = new Date(date);
+    end.setHours(23, 59, 59, 999);
+
+    whereClause.date = {
+      gte: start,
+      lte: end
+    };
     }
 
     const receives = await prismaClient.receive.findMany({
