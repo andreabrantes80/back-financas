@@ -29,6 +29,7 @@ class CreateReceiveController{
     } catch (err) {
 
       console.log("ERRO CREATE RECEIVE:", err);
+      return response.status(500).json({ error: "Erro ao criar registro" });
 
 
     }
