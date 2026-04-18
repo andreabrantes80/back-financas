@@ -10,6 +10,7 @@ import { DeleteReceiveController } from './controllers/receive/DeleteReceiveCont
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 import { ListGoalsController } from './controllers/listGoals/ListGoalsController'
+import { CreateGoalController } from './controllers/listGoals/CreateGoalController '
 
 const router = Router();
 
@@ -34,6 +35,8 @@ router.get("/receives", isAuthenticated, new ListReceivesController().handle);
 router.delete("/receives/delete", isAuthenticated, new DeleteReceiveController().handle);
 
 router.get('/goals', isAuthenticated, new ListGoalsController().handle);
+
+router.post('/goal', isAuthenticated, new CreateGoalController().handle);
 
 
 export { router };
