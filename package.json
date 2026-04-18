@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/server.ts",
-    "build": "rm -rf dist && tsc && npx prisma generate",
+    "build": "npx prisma generate && tsc",
     "start": "node dist/server.js",
     "postinstall": "npx prisma generate"
   },
