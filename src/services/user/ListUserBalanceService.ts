@@ -42,18 +42,18 @@ class ListUserBalanceService {
 
     // 🔹 somar depósitos
     const totalDeposit = movements
-      .filter(item => item.type === 'deposit')
+      .filter(item => item.type === 'receita')
       .reduce((acc, item) => acc + item.value, 0);
 
     // 🔹 somar saídas
     const totalWithdraw = movements
-      .filter(item => item.type === 'withdraw')
+      .filter(item => item.type === 'despesa')
       .reduce((acc, item) => acc + item.value, 0);
 
     // 🔥 retorno padronizado
     dashboard.push(
       {
-        tag: 'saldo',
+        tag: 'balance',
         amount: findUser.balance
       },
       {
