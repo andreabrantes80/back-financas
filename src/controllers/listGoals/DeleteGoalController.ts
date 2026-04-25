@@ -9,7 +9,7 @@ class DeleteGoalController {
     console.log("USER:", req.user_id);
 
 
-    const goal_id = req.params.goal_id as string;
+    const goal_id = req.params.id as string;
     const user_id = req.user_id;
 
     const service = new DeleteGoalService();
