@@ -3,15 +3,21 @@ import { prismaClient } from "../../prisma";
 class ListGoalsService {
   async execute(user_id: string) {
 
+    if (!user_id) {
+      throw new Error("Usuário inválido");
+    }
+
     const goals = await prismaClient.goal.findMany({
-      where: { user_id }
+      where: { user_id },
+      orderBy: {
+        created_at: 'desc'
+      }
     });
 
-
-    // montar resposta com progresso
     const goalsWithProgress = goals.map(goal => {
-       const current = goal.current || 0;
-      const target = goal.target || 0;
+
+      const current = Number(goal.current) || 0;
+      const target = Number(goal.target) || 0;
 
       const progress = target > 0
         ? Math.min((current / target) * 100, 100)
@@ -20,9 +26,13 @@ class ListGoalsService {
       const remaining = Math.max(target - current, 0);
 
       return {
-        ...goal,
+        id: goal.id,
+        name: goal.name,
+        target,
+        current,
         progress,
-        remaining
+        remaining,
+        created_at: goal.created_at
       };
     });
 
