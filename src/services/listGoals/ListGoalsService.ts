@@ -7,26 +7,22 @@ class ListGoalsService {
       where: { user_id }
     });
 
-    // pegar total do usuário
-    const balance = await prismaClient.receive.findMany({
-      where: { user_id }
-    });
-
-    const total = balance.reduce((acc, item) => {
-      return item.type === 'deposit'
-        ? acc + item.value
-        : acc - item.value;
-    }, 0);
 
     // montar resposta com progresso
     const goalsWithProgress = goals.map(goal => {
-      const progress = (total / goal.target) * 100;
+       const current = goal.current || 0;
+      const target = goal.target || 0;
+
+      const progress = target > 0
+        ? Math.min((current / target) * 100, 100)
+        : 0;
+
+      const remaining = Math.max(target - current, 0);
 
       return {
         ...goal,
-        current: total,
-        progress: progress > 100 ? 100 : progress,
-        remaining: goal.target - total
+        progress,
+        remaining
       };
     });
 

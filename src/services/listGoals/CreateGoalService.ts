@@ -7,6 +7,7 @@ class CreateGoalService {
       data: {
         name,
         target,
+        current: 0,
         user_id
       }
     });
